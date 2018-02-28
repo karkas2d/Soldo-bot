@@ -6,7 +6,7 @@ from decimal import *
 
 bot = telebot.TeleBot(config.token)
 
-@bot.message_handler(commands=['c', 'crex', 'крекс'])
+@bot.message_handler(commands=['c', 'crex'])
 def send_welcome(message):
         r = requests.get("https://api.crex24.com/CryptoExchangeService/BotPublic/ReturnTicker?request=[NamePairs=BTC_SLD]")
         d = r.json()
@@ -17,7 +17,7 @@ def send_welcome(message):
         bot.reply_to(message, 'Crex24.com:'+'\nPair Name: Btc-Soldo'+'\nLast Price:  ' + '{0:.8f}'.format(last)+'  Btc'+'\nLow Price:  ' + '{0:.8f}'.format(low)+'  Btc'+'\nHigh Price: '+'{0:.8f}'.format(high)+" Btc"+'\nVolume: '+'{0:.8f}'.format(vol)+" Btc")
 
 
-@bot.message_handler(commands=['a', 'alpha', 'альфа'])
+@bot.message_handler(commands=['a', 'alpha'])
 def send_welcome(message):
         params = {'limit' : 1}
         r = requests.get('https://btc-alpha.com/api/charts/SLD_BTC/D/chart', params = params)
