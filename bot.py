@@ -47,14 +47,23 @@ def send_welcome(message):
 @bot.message_handler(commands=['n', 'net'])
 def send_welcome(message):
         daemon = requests.get('http://127.0.0.1:33712/getinfo')
-        
         request = daemon.json()
         diff = Decimal(request['difficulty'])
         block = Decimal(request['height'])
         rate = (diff/20)/1000
-        bot.reply_to(message,'Height:   '+format(block)+ '\nHashrate:  ''{0:.2f}'.format(rate)+'  KH/s'+'\nNet Difficulty: '+ format(diff))
-
-
+        url = "http://localhost:33712/json_rpc"
+        headers = {'content-type': 'application/json'}
+        rpc_input = {"method": "getlastblockheader"}
+        rpc_input.update({"jsonrpc": "2.0", "id": "0"})
+        r = requests.post(url, data=json.dumps(rpc_input),headers=headers)
+        result = json.dumps(r.json()['result']['block_header']['hash'])
+        hash = result.replace('"','')
+        rpc_input = {"method": "block_json","params":{"hash" : hash}}
+        h = requests.post(url,data=json.dumps(rpc_input),headers=headers)
+        supply = json.dumps(h.json()['result']['block']['alreadyGeneratedCoins'])
+        supply = int(supply.replace('"',''))
+        proc = supply/10000000000000
+        bot.reply_to(message,'Height:   '+format(block)+ '\nHashrate:  ''{0:.2f}'.format(rate)+'  KH/s'+'\nNet Difficulty: '+ format(diff)+'\nEmission: '+'{0:.2f}'.format(proc)+' %')
 
        
                      
