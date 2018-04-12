@@ -10,7 +10,7 @@ TRACK_URL = 'https://api.botan.io/track'
 
 SHORTENER_URL = 'https://api.botan.io/s/'
 
-botan_token = 'dee44a1b-b3f4-4974-bf29-0e483486deef'
+botan_token = 'APP TOKEN'
 
 
 
