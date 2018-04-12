@@ -20,11 +20,11 @@ from time import sleep
 
 
 
-WEBHOOK_HOST = '54.244.48.62'
+WEBHOOK_HOST = 'IP_ADDRESS'
 
 WEBHOOK_PORT = 80
 
-WEBHOOK_LISTEN = '54.244.48.62' 
+WEBHOOK_LISTEN = '0.0.0.0' 
 
 
 
